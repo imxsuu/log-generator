@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: logs-generator
+    namespace: logging
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            app: logs-generator
+    template:
+        metadata:
+            labels:
+                app: logs-generator
+        spec:
+            imagePullSecrets:
+                - name: regcred
+            containers:
+                - name: logs-generator
+                  image: 10.0.0.255:5000/gedge-platform/logs-generator
+                  imagePullPolicy: Always
+                  ports:
+                  - containerPort: 8080

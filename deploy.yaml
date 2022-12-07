@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: logs-collector
+    namespace: logging
+spec:
+    replicas: 48
+    selector:
+        matchLabels:
+            app: logs-collector
+    template:
+        metadata:
+            labels:
+                app: logs-collector
+        spec:
+            imagePullSecrets:
+                - name: regcred
+            containers:
+                - name: logs-collector 
+                  image: 10.0.0.255:5000/gedge-platform/faker:v3.0.0
+                  imagePullPolicy: Always
+                  ports:
+                  - containerPort: 8080

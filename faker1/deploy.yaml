@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: faker-deploy
+    namespace: logging
+spec:
+    replicas: 100
+    selector:
+        matchLabels:
+            app: faker-deploy
+    template:
+        metadata:
+            labels:
+                app: faker-deploy
+        spec:
+            imagePullSecrets:
+                - name: regcred
+            containers:
+                - name: faker-deploy
+                  image: 10.0.0.255:5000/gedge-platform/faker3:v1.0.0
+                  imagePullPolicy: Always
+                  ports:
+                  - containerPort: 8080

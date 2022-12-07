@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+    name: faker1
+    namespace: logging
+    labels:
+        app: faker1
+spec:
+    restartPolicy: Never
+    containers:
+    - name: faker1
+      image: 10.0.0.255:5000/gedge-platform/faker1:v1.0.0
+      #args: ["sh",  "-c", "while true; do sleep 30; done;"]
+      imagePullPolicy: Always    
+      ports:
+      - containerPort: 8080
+    nodeSelector:
+        kubernetes.io/hostname: ketiops-gpu-node-6
